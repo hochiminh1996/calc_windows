@@ -25,8 +25,12 @@ body {
     border-radius: 5px;
     box-shadow: 0px 0px 15px #14BDEB;
     margin-top: -1.7em;
+    opacity: .8;
 }
 
+#calc:hover{
+    opacity: 1;
+}
 #calc h3 {
     font-family: .8em;
     font-weight: 300;
