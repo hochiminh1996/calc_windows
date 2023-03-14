@@ -46,6 +46,7 @@ body {
 /* area de exibicao */
 #previous-operation {
     color: #e9e7ea;
+    font-size: 1.2em;
 }
 
 #current-operation {

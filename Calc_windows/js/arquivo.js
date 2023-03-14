@@ -34,18 +34,56 @@ class Calculator {
 
     // método que processa todas as operações da calculadora
     processOperation(operation) {
-        //pegando o valor atual e o anterior
-        let operationValue;
+        // verifica se o valor atual é vazio
+        if (this.currentOperationText.innerText === "") {
+            // possibilita a mudança de operação
+            if (this.previousOperationText.innerText !== "") {
+                // se o previous não tiver vazio, ou seja, já foi inserido valores da primeira parte da operação, ai ele vai permitir a mudança de operador 
 
-        const previous = +this.previousOperationText.innerText;//observe a conversão (+)
+                this.changeOperation(operation);
+
+
+            }
+
+            return;
+            // se o usuário tentar adicionar uma operação sem digitar valores. Ou seja, apenas inserindo operadores (+,-, *,/)
+        }
+
+
+        let operationValue;//armazena o resultado da operação
+
+        const previous = +this.previousOperationText.innerText.split(" ")[0];//observe a conversão (+). Foi usado o split para pegar apenas os valores. Ou seja, ele vai retornar um array, onde cada posição se dará através do espaço vazio. Logo, o array de posição 0 é o número digitado. O array de posição 1 é 0 sinal.
+
+
         const current = +this.currentOperationText.innerText;
 
+
+        // operações 
         switch (operation) {
             case "+":
                 operationValue = previous + current;
                 //operação
                 this.updateScreen(operationValue, operation, current, previous)
                 break;
+
+            case "-":
+                operationValue = previous - current;
+                //operação
+                this.updateScreen(operationValue, operation, current, previous)
+                break;
+
+            case "/":
+                operationValue = previous / current;
+                //operação
+                this.updateScreen(operationValue, operation, current, previous)
+                break;
+
+            case "*":
+                operationValue = previous * current;
+                //operação
+                this.updateScreen(operationValue, operation, current, previous)
+                break;
+
             default:
                 return;
         }
@@ -63,10 +101,10 @@ class Calculator {
         //se o operationValue for nulo, ele adiciona o valor digitado
         if (operationValue === null) {
             this.currentOperationText.innerText += this.currentOperation;
-        }else{
+        } else {
             // se não for nulo
             //verificar se o valor é zero, se é adiciona o valor atual
-            if(previous===0){
+            if (previous === 0) {
                 operationValue = current;
             }
 
@@ -74,8 +112,25 @@ class Calculator {
             this.previousOperationText.innerText = `${operationValue} ${operation}`;
             //ele joga o valor digitado antes do sinal com o sinal. Por exemplo, você digitou 25, depois colocou um +. Esse valor (25+) será jogado na tela
 
-            this.currentOperationText.innerText = ""; //zerando
+            this.currentOperationText.innerText = "";//zerando. Ele vai apagar o visor de digitado agora
         }
+    }
+
+    // vai permitir a mudança de operação
+    changeOperation(operation){
+        const mathOperations = ["*", "/", "+", "-"];// array com as operações permmitidas
+
+        // verifica se a operação digitada pelo usuário é permitida, segundo o nosso array de operação
+        if(!mathOperations.includes(operation)){
+            return;
+        }
+
+        
+        this.previousOperationText.innerText = this.previousOperationText.innerText.slice(0, -1) + operation;
+        // vai pegar o valor da primeira operação, e vai remover o último elemento e substituir pelo nosso operador
+        
+        // 25 + = ai o usuário quer trocar para um -, ele vai remover o + anterior e adicionar o - => 25 -
+
     }
 
 }
