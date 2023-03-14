@@ -35,7 +35,7 @@ class Calculator {
     // método que processa todas as operações da calculadora
     processOperation(operation) {
         // verifica se o valor atual é vazio
-        if (this.currentOperationText.innerText === "") {
+        if (this.currentOperationText.innerText === "" && operation !== "C") {
             // possibilita a mudança de operação
             if (this.previousOperationText.innerText !== "") {
                 // se o previous não tiver vazio, ou seja, já foi inserido valores da primeira parte da operação, ai ele vai permitir a mudança de operador 
@@ -84,6 +84,21 @@ class Calculator {
                 this.updateScreen(operationValue, operation, current, previous)
                 break;
 
+            case "DEL":
+                this.processDelOperator();
+                break;
+
+            case "CE":
+                this.processClearCurrentOperation();
+                break;
+
+            case "C":
+                this.processClearOperator();
+                break;
+
+            case "=":
+                this.processEqualOperator();
+                break;
             default:
                 return;
         }
@@ -117,20 +132,48 @@ class Calculator {
     }
 
     // vai permitir a mudança de operação
-    changeOperation(operation){
+    changeOperation(operation) {
         const mathOperations = ["*", "/", "+", "-"];// array com as operações permmitidas
 
         // verifica se a operação digitada pelo usuário é permitida, segundo o nosso array de operação
-        if(!mathOperations.includes(operation)){
+        if (!mathOperations.includes(operation)) {
             return;
         }
 
-        
+
         this.previousOperationText.innerText = this.previousOperationText.innerText.slice(0, -1) + operation;
         // vai pegar o valor da primeira operação, e vai remover o último elemento e substituir pelo nosso operador
-        
+
         // 25 + = ai o usuário quer trocar para um -, ele vai remover o + anterior e adicionar o - => 25 -
 
+    }
+
+    // método que deleta o último digito
+    processDelOperator() {
+        this.currentOperationText.innerText = this.currentOperationText.innerText.slice(0, -1);
+        // o splice está removendo o último digito da nossa string
+    }
+
+
+    //Método que apaga os digitos que foram digitados
+    processClearCurrentOperation() {
+        this.currentOperationText.innerText = "";
+    }
+
+
+    // Método que apaga os valores dos dois visores. Ou seja, o valor que já foi adicionado no previous (visor acima) e o visor que está  sendo digitado (visor abaixo)
+    processClearOperator() {
+        this.previousOperationText.innerText = "";
+        this.currentOperationText.innerText = "";
+    }
+
+    // método de igualdade
+    processEqualOperator() {
+        let operation = this.previousOperationText.innerText.split(" ")[1];
+        // pega a operação que está sendo executada
+
+        // chamando o método que executa uma operação e passando o operador 
+        this.processOperation(operation);
     }
 
 }

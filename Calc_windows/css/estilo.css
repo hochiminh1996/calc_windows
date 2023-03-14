@@ -16,7 +16,7 @@ body {
 }
 
 #calc {
-    width: 400px;
+    width: 350px;
     padding: .5em;
     background-color: #00100B;
     color: #e9e7ea;
@@ -24,6 +24,7 @@ body {
     flex-direction: column;
     border-radius: 5px;
     box-shadow: 0px 0px 15px #14BDEB;
+    margin-top: -1.7em;
 }
 
 #calc h3 {
@@ -40,18 +41,21 @@ body {
 #current-operation {
     overflow-wrap: break-word;
     padding: .2em;
-    min-height: 1.9em;
+    min-height: 1.8em;
 }
 
 /* area de exibicao */
 #previous-operation {
     color: #e9e7ea;
     font-size: 1.2em;
+    
 }
 
 #current-operation {
+    border: 1px solid #14BDEB;
     font-size: 3em;
     font-weight: 700;
+    border-radius: 5px;
 }
 
 /* organização da nossa div que contém os elementos */
@@ -61,6 +65,7 @@ body {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     /* 4 colunas iguais */
     gap: 3px;
+    margin-top: .4em;
 }
 
 #buttons-container button {
