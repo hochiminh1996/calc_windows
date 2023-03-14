@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #010409;
+    background-color: #00100B;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -16,16 +16,18 @@ body {
 #calc {
     width: 400px;
     padding: .5em;
-    background-color: #c4c4c4;
-    color: #000;
+    background-color: #00100B;
+    color: #e9e7ea;
     display: flex;
     flex-direction: column;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px #14BDEB;
 }
 
 #calc h3 {
     font-family: .8em;
     font-weight: 300;
-    color: #666;
+    color: #e9e9e9;
 }
 
 #operations {
@@ -39,9 +41,9 @@ body {
     min-height: 1.6em;
 }
 
-
+/* area de exibicao */
 #previous-operation {
-    color: #777;
+    color: #e9e7ea;
 }
 
 #current-operation {
@@ -50,8 +52,42 @@ body {
 }
 
 /* organização da nossa div que contém os elementos */
-#buttons-container{
+#buttons-container {
+    /* realizando  a estruturação da nossa caixa */
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    /* 4 colunas iguais */
     gap: 3px;
+}
+
+#buttons-container button {
+    border: 1px solid transparent;
+    border-radius: 0;
+    height: 4em;
+    font-size: 1.2em;
+    background-color: #00100B;
+    cursor: pointer;
+    border-color: #14BDEB;
+    color: #e9e7ea;
+    border-radius: 5px;
+
+}
+
+#buttons-container .number {
+}
+
+#buttons-container button:hover {
+    border-color: #14bdeb;
+    transition: all linear .5s;
+    box-shadow: 0px 0px 10px #14BDEB;
+}
+
+#buttons-container #equal-btn{
+    grid-column: span 2;
+}
+
+#buttons-container #equal-btn:hover{
+    transition: all linear .5s;
+    border-color: #14BDEB;
+    transition: all linear .5s;
 }
