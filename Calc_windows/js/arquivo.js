@@ -1,6 +1,6 @@
 
 const previousOperationText = document.querySelector("#previous-operation");
-// visor com os números da operação anterior
+// visor com os números digitados antes do sinal. Por exemplo, vocÊ digitou 25 +. O 25 vai ficar nesse visor e o próximo valor será o current
 
 const currentOperationText = document.querySelector("#current-operation");
 // visor com os números digitados agora ou operação atual
@@ -22,7 +22,7 @@ class Calculator {
     addDigit(digit) {
 
         //verificando  se já tem um ponto. Ou seja, se foi digitado um ponto e já contém ponto no nosso currentOperation que já foi inserido
-        if(digit === "." && this.currentOperationText.innerText.includes(".")){
+        if (digit === "." && this.currentOperationText.innerText.includes(".")) {
             return;//Se ele entrou aqui, significa que já tinha um ponto. Neste caso, ele apenas encerra.
         }
 
@@ -30,21 +30,52 @@ class Calculator {
         this.updateScreen();
     }
 
-    //método que atualiza os valores no visor da claculadora
-    updateScreen() {
-        this.currentOperationText.innerText += this.currentOperation;
-    }
+
 
     // método que processa todas as operações da calculadora
-    processOperation(operation){
-        alert("Chegou aqui:"+operation);
-
+    processOperation(operation) {
         //pegando o valor atual e o anterior
-        let operationValue = 0;
-        let previous =+this.previousOperationText.innerText;//observe a conversão (+)
-        let current =+this.currentOperationText.innerText;
-        
+        let operationValue;
 
+        const previous = +this.previousOperationText.innerText;//observe a conversão (+)
+        const current = +this.currentOperationText.innerText;
+
+        switch (operation) {
+            case "+":
+                operationValue = previous + current;
+                //operação
+                this.updateScreen(operationValue, operation, current, previous)
+                break;
+            default:
+                return;
+        }
+
+    }
+
+    //método que atualiza os valores no visor da claculadora
+    updateScreen(
+        operationValue = null,
+        operation = null,
+        current = null,
+        previous = null) {
+
+        console.log(operationValue, operation, current, previous);
+        //se o operationValue for nulo, ele adiciona o valor digitado
+        if (operationValue === null) {
+            this.currentOperationText.innerText += this.currentOperation;
+        }else{
+            // se não for nulo
+            //verificar se o valor é zero, se é adiciona o valor atual
+            if(previous===0){
+                operationValue = current;
+            }
+
+            //adicionando o valor atual para o previous
+            this.previousOperationText.innerText = `${operationValue} ${operation}`;
+            //ele joga o valor digitado antes do sinal com o sinal. Por exemplo, você digitou 25, depois colocou um +. Esse valor (25+) será jogado na tela
+
+            this.currentOperationText.innerText = ""; //zerando
+        }
     }
 
 }
